@@ -43,11 +43,6 @@ export function ScheduleView({ events }: Props) {
         }
     ];
 
-    const getCategoryBadge = (category?: string) => {
-        if (!category) return null;
-        return <span style={{ padding: '4px 12px', background: 'rgba(139, 197, 63, 0.15)', color: 'var(--secondary)', borderRadius: '16px', fontSize: '0.8rem', fontWeight: 600 }}>{category}</span>;
-    };
-
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-300)', paddingBottom: 'var(--space-400)' }}>
             {/* Segmented Control */}
