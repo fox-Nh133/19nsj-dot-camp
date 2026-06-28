@@ -1,0 +1,10 @@
+{
+  "name": "@19nsj/schema",
+  "private": true,
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "pbf": "^4.0.1"
+  }
+}

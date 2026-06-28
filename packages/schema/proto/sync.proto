@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package sync;
+
+// 天気コード（Open-Meteoや気象庁のコードをアプリ内でマッピングするための最小Enum）
+enum WeatherCode {
+  UNKNOWN = 0;
+  CLEAR = 1;       // 晴れ
+  CLOUDY = 2;      // 曇り
+  RAIN = 3;        // 雨
+  HEAVY_RAIN = 4;  // 大雨（警戒レベル）
+  THUNDER = 5;     // 雷
+}
+
+message SyncData {
+  uint64 timestamp = 1;      // 同期時刻（Varint圧縮）
+  WeatherData weather = 2;   // 天気情報
+  repeated News news = 3;    // ニュース配列（極小テキストのみ）
+  repeated Event events = 4; // イベント/タイムスケジュールスケジュール（新規追加）
+}
+
+message WeatherData {
+  uint64 updated_at = 1;     // 予報の発表時刻（UNIXタイムスタンプ）
+  CurrentWeather current = 2;
+  TomorrowForecast tomorrow = 3;
+  HourlyForecast hourly = 4;
+}
+
+// 1. 今の気象情報
+message CurrentWeather {
+  WeatherCode code = 1;
+  sint32 temp = 2;           // 気温 (℃ * 10) 例: 25.4℃ -> 254
+  uint32 humidity = 3;       // 湿度 (%)
+  uint32 precip = 4;         // 降水量 (mm * 10) 例: 1.5mm -> 15
+  uint32 wind_speed = 5;     // 風速 (m/s * 10) 例: 3.2m/s -> 32
+}
+
+// 2. 明日の天気予報
+message TomorrowForecast {
+  WeatherCode code = 1;
+  sint32 temp = 2;           // 平均気温 (℃ * 10)
+  sint32 temp_max = 3;       // 最高気温 (℃ * 10)
+  sint32 temp_min = 4;       // 最低気温 (℃ * 10)
+  uint32 pop = 5;            // 降水確率 (%)
+  uint32 precip = 6;         // 降水量予報 (mm * 10)
+  uint32 wind_speed = 7;     // 最大風速 (m/s * 10)
+}
+
+// 3. 1時間天気
+message HourlyForecast {
+  uint64 start_time = 1;     // 配列の[0]に該当する時間のUNIXタイムスタンプ
+  repeated WeatherCode codes = 2;
+  repeated sint32 temps = 3;
+  repeated uint32 humidities = 4;
+  repeated uint32 pops = 5;
+  repeated uint32 precips = 6;
+  repeated uint32 wind_speeds = 7;
+}
+
+enum NewsCategory {
+  NONE = 0;
+  SAFETY = 1;        // 安全・緊急
+  PROGRAM = 2;       // プログラム・イベント
+  TRANSPORT = 3;     // 交通・移動
+  ANNOUNCEMENT = 4;  // 全体お知らせ
+}
+
+message News {
+  uint64 id = 1;
+  uint64 created_at = 2;
+  string title = 3;          // 最小限の文字数に制限されたタイトル
+  NewsCategory category = 4; // カテゴリタグ
+}
+
+// イベント/タイムスケジュール情報（新規追加）
+message Event {
+  uint64 id = 1;
+  string title = 2;          // イベント名
+  uint64 start_time = 3;     // 開始時刻（UNIXタイムスタンプ）
+  uint64 end_time = 4;       // 終了時刻（UNIXタイムスタンプ）
+  string location = 5;       // 場所
+  string description = 6;    // 詳細説明
+}

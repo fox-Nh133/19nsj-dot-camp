@@ -7,13 +7,14 @@ interface Props {
 
 export function BottomNav({ currentView, onViewChange }: Props) {
     const navs: { id: ViewType; icon: string; label: string }[] = [
-        { id: 'home', icon: 'bi-house-door', label: 'Home' },
+        { id: 'news', icon: 'bi-newspaper', label: 'News' },
+        { id: 'weather', icon: 'bi-cloud-sun', label: 'Weather' },
         { id: 'map', icon: 'bi-map', label: 'Map' },
-        { id: 'report', icon: 'bi-journal-text', label: 'Report' }
+        { id: 'schedule', icon: 'bi-calendar3', label: 'Schedule' }
     ];
 
     return (
-        <nav class="bottom-nav glass">
+        <nav class="bottom-nav">
             {navs.map(nav => (
                 <button 
                     key={nav.id}

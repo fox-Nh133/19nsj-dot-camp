@@ -1,0 +1,94 @@
+{
+  // ==========================================
+  // 19NSJ Sync Data Local Configuration
+  // JSONC format (Comments and trailing commas allowed)
+  // ==========================================
+
+  // データ生成時刻（UNIXミリ秒）
+  "timestamp": 1719576000000,
+  
+  // 天気情報
+  "weather": {
+    "updatedAt": 1719576000,
+    "current": {
+      "code": 1, // CLEAR=1, CLOUDY=2, RAIN=3, HEAVY_RAIN=4, THUNDER=5
+      "temp": 254, // 25.4℃
+      "humidity": 60,
+      "precip": 0,
+      "windSpeed": 32
+    },
+    "tomorrow": {
+      "code": 2, // CLOUDY
+      "temp": 242,
+      "tempMax": 280,
+      "tempMin": 200,
+      "pop": 30, // 降水確率 30%
+      "precip": 10,
+      "windSpeed": 45
+    },
+    // 24時間分の1時間予報データ
+    "hourly": {
+      "startTime": 1719576000,
+      "codes": [
+        1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3,
+        3, 4, 4, 3, 2, 2, 2, 1, 1, 1, 1, 1
+      ],
+      "temps": [
+        210, 205, 200, 195, 200, 210, 225, 240, 255, 270, 280, 275,
+        265, 250, 240, 235, 230, 225, 220, 215, 210, 205, 200, 198
+      ],
+      "humidities": [
+        80, 82, 85, 88, 85, 80, 75, 70, 65, 60, 58, 65,
+        75, 85, 90, 88, 85, 82, 80, 78, 80, 82, 85, 84
+      ],
+      "pops": [
+        0, 0, 0, 0, 0, 5, 10, 20, 30, 40, 50, 70,
+        80, 90, 90, 80, 60, 40, 30, 20, 10, 5, 0, 0
+      ],
+      "precips": [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5,
+        15, 30, 45, 20, 10, 5, 0, 0, 0, 0, 0, 0
+      ],
+      "windSpeeds": [
+        15, 12, 10, 8, 10, 15, 20, 25, 28, 30, 32, 35,
+        38, 40, 35, 30, 25, 20, 18, 15, 12, 10, 8, 10
+      ]
+    }
+  },
+
+  // ニュース情報
+  "news": [
+    {
+      "id": 101,
+      "createdAt": 1719572400000,
+      "title": "Opening ceremony starts at 18:00 tonight!",
+      "category": 2 // PROGRAM
+    },
+    {
+      "id": 102,
+      "createdAt": 1719568800000,
+      "title": "Offline maps updated. Download now.",
+      "category": 4 // ANNOUNCEMENT
+    }
+  ],
+
+  // イベント情報
+  "events": [
+    {
+      "id": 201,
+      "title": "Opening Ceremony",
+      "startTime": 1719583200,
+      "endTime": 1719590400,
+      "location": "Central Arena",
+      "description": "Welcoming all scout members across Japan. Gathering begins at 17:30."
+    },
+    {
+      "id": 202,
+      "title": "Patrol Leader Council Meeting",
+      "startTime": 1719594000,
+      "endTime": 1719597600,
+      "location": "Subcamp A Assembly Tent",
+      "description": "Briefing for tomorrow's outdoor pioneering project."
+    }
+  ]
+}

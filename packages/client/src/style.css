@@ -1,0 +1,415 @@
+:root {
+  /* ADS Colors */
+  --color-primary: #0C66E4;
+  --color-primary-hover: #0052CC;
+  --color-primary-active: #09326C;
+  --color-danger: #CA3521;
+  --color-danger-hover: #AE2A19;
+  --color-success: #22A06B;
+  --color-warning: #B38600;
+
+  /* Surfaces & Backgrounds */
+  --bg-base: #F4F5F7; /* Layer 0 */
+  --surface: #FFFFFF; /* Layer 100 */
+  --surface-hover: #F4F5F7; /* N20 */
+  --surface-active: #EBECF0; /* N30 */
+  --surface-sunken: #091E420F; /* Light gray for default buttons / inputs */
+
+  /* Text Colors */
+  --text-main: #172B4D; /* N800 */
+  --text-subtle: #6B778C; /* N200 */
+  --text-inverse: #FFFFFF;
+
+  /* Borders */
+  --border-color: #DFE1E6; /* N40 */
+  
+  /* Elevations (Z-axis) */
+  --elevation-surface: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+  --elevation-raised: 0 3px 5px rgba(9, 30, 66, 0.20), 0 0 1px rgba(9, 30, 66, 0.31);
+  --elevation-overlay: 0 8px 12px rgba(9, 30, 66, 0.15), 0 0 1px rgba(9, 30, 66, 0.31);
+
+  /* Spacing (8px grid) */
+  --space-050: 4px;
+  --space-100: 8px;
+  --space-200: 16px;
+  --space-300: 24px;
+  --space-400: 32px;
+  --space-500: 40px;
+
+  /* Layout */
+  --nav-height: 70px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-200) var(--space-300);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  box-shadow: 0 1px 0 var(--border-color); /* Subtle border instead of shadow for header */
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  color: var(--text-main);
+}
+
+/* Main Content */
+.app-content {
+  flex: 1;
+  padding: var(--space-300);
+  padding-bottom: calc(var(--nav-height) + var(--space-300));
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Views */
+.view {
+  display: none;
+}
+.view.active {
+  display: block;
+}
+
+/* ADS Cards (Surface) */
+.bento-card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevation-surface);
+  padding: var(--space-200);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease;
+}
+
+.bento-card:hover {
+  /* Raised elevation on hover if it's interactive, but we can apply it generally or selectively */
+}
+
+.bento-card-small {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevation-surface);
+  padding: var(--space-200);
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4 {
+  color: var(--text-main);
+  font-weight: 600;
+  margin: 0;
+}
+h1 { font-size: 1.5rem; line-height: 1.33; }
+h2 { font-size: 1.25rem; line-height: 1.4; }
+h3 { font-size: 1rem; line-height: 1.5; }
+
+.text-subtle {
+  color: var(--text-subtle);
+  font-size: 0.875rem; /* 14px */
+}
+.text-caption {
+  color: var(--text-subtle);
+  font-size: 0.75rem; /* 12px */
+}
+
+/* Buttons (ADS Hierarchy) */
+.btn {
+  padding: 0 var(--space-200);
+  height: 32px; /* Standard ADS button height */
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-100);
+  cursor: pointer;
+  transition: background 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
+  white-space: nowrap;
+}
+
+.btn-large {
+  height: 40px;
+  padding: 0 var(--space-300);
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--text-inverse);
+}
+.btn-primary:hover { background: var(--color-primary-hover); }
+.btn-primary:active { background: var(--color-primary-active); }
+
+.btn-default {
+  background: var(--surface-sunken);
+  color: var(--text-main);
+}
+.btn-default:hover { background: #091E4224; } /* Slightly darker gray */
+.btn-default:active { background: #091E424F; color: var(--color-primary); }
+
+.btn-subtle {
+  background: transparent;
+  color: var(--text-main);
+}
+.btn-subtle:hover { background: var(--surface-sunken); }
+.btn-subtle:active { background: #091E4224; color: var(--color-primary); }
+
+.btn-danger {
+  background: var(--color-danger);
+  color: var(--text-inverse);
+}
+.btn-danger:hover { background: var(--color-danger-hover); }
+
+/* Badges / Lozenges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.badge-success { background: #E3FCEF; color: #006644; }
+.badge-warning { background: #FFFAE6; color: #974F0C; }
+.badge-danger { background: #FFEBE6; color: #BF2600; }
+.badge-default { background: #DFE1E6; color: #42526E; }
+.badge-primary { background: #DEEBFF; color: #0747A6; }
+
+/* Chips (For filter selection) */
+.chip {
+  flex-shrink: 0;
+  padding: var(--space-100) var(--space-200);
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid var(--border-color);
+  background: var(--surface);
+  color: var(--text-main);
+}
+.chip.active {
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  border-color: var(--color-primary);
+}
+.chip.inactive:hover {
+  background: var(--surface-hover);
+}
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: var(--surface);
+  box-shadow: 0 -1px 0 var(--border-color); /* Subtle top border */
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 1000;
+}
+.nav-item {
+  background: none;
+  border: none;
+  color: var(--text-subtle);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-050);
+  cursor: pointer;
+  width: 64px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+.nav-item i {
+  font-size: 1.25rem;
+}
+.nav-item span {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.nav-item.active {
+  color: var(--color-primary);
+}
+.nav-item:hover {
+  background: var(--surface-sunken);
+}
+
+/* Hide Scrollbar */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Map View */
+#map-container {
+  height: calc(100vh - 200px);
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--elevation-surface);
+}
+
+/* Schedule & Settings UI */
+
+/* Segmented Control */
+.segment-control {
+  display: flex;
+  background: var(--surface-sunken);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  gap: 2px;
+}
+.segment-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  padding: var(--space-100) var(--space-200);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.segment-btn.active {
+  background: var(--surface);
+  color: var(--text-main);
+  box-shadow: var(--elevation-surface);
+}
+.segment-btn.active-solid {
+  background: var(--color-primary);
+  color: var(--text-inverse);
+  box-shadow: var(--elevation-surface);
+}
+
+/* Timeline */
+.timeline-container {
+  position: relative;
+  padding-left: var(--space-300);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+}
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  bottom: 0;
+  left: 6px;
+  width: 2px;
+  background: var(--border-color);
+  z-index: 0;
+}
+.timeline-item {
+  position: relative;
+  z-index: 1;
+}
+.timeline-marker {
+  position: absolute;
+  left: -24px;
+  top: 16px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--border-color);
+  border: 2px solid var(--bg-base);
+  box-shadow: 0 0 0 1px var(--border-color);
+  z-index: 2;
+}
+.timeline-marker.primary {
+  background: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--surface-sunken);
+  transition: .2s;
+  border-radius: 24px;
+}
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--surface);
+  transition: .2s;
+  border-radius: 50%;
+  box-shadow: var(--elevation-surface);
+}
+input:checked + .toggle-slider {
+  background-color: var(--color-success);
+}
+input:checked + .toggle-slider.primary {
+  background-color: var(--color-primary);
+}
+input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+
