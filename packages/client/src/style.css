@@ -8,6 +8,11 @@
   --color-success: #22A06B;
   --color-warning: #B38600;
 
+  /* Jamboree Specific Colors */
+  --color-jamboree-green: #B1E97C; /* Light green for active states */
+  --color-jamboree-green-dark: #4A7D29;
+  --surface-green-light: #F0F9E8;
+
   /* Surfaces & Backgrounds */
   --bg-base: #F4F5F7; /* Layer 0 */
   --surface: #FFFFFF; /* Layer 100 */
@@ -271,7 +276,9 @@ h3 { font-size: 1rem; line-height: 1.5; }
   font-weight: 500;
 }
 .nav-item.active {
-  color: var(--color-primary);
+  color: var(--text-main);
+  background: var(--color-jamboree-green);
+  border-radius: 24px;
 }
 .nav-item:hover {
   background: var(--surface-sunken);
@@ -412,4 +419,143 @@ input:checked + .toggle-slider.primary {
 input:checked + .toggle-slider:before {
   transform: translateX(20px);
 }
+
+/* Home View Specific Styles */
+.hero-card {
+  background: linear-gradient(135deg, #E31837, #A01026);
+  border-radius: var(--radius-md);
+  padding: var(--space-300);
+  color: white;
+  box-shadow: var(--elevation-raised);
+  position: relative;
+  overflow: hidden;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-100);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #8EE04E;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(142, 224, 78, 0.7);
+  animation: pulse-green 2s infinite;
+}
+@keyframes pulse-green {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(142, 224, 78, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(142, 224, 78, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(142, 224, 78, 0); }
+}
+
+.bento-btn {
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-100);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-main);
+  box-shadow: var(--elevation-surface);
+  cursor: pointer;
+  flex: 1;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.bento-btn:active {
+  transform: scale(0.98);
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.schedule-watermark {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  font-size: 8rem;
+  color: rgba(0,0,0,0.03);
+  z-index: 0;
+}
+
+/* News Carousel and Card Custom Styles */
+.news-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: var(--space-200);
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-100);
+  margin-left: calc(-1 * var(--space-300));
+  margin-right: calc(-1 * var(--space-300));
+  padding-left: var(--space-300);
+  padding-right: var(--space-300);
+}
+.news-carousel::-webkit-scrollbar {
+  display: none;
+}
+.news-carousel .hero-card {
+  flex: 0 0 85%;
+  scroll-snap-align: start;
+  min-width: 280px;
+  max-width: 320px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.news-carousel .hero-card:last-child {
+  scroll-snap-align: end;
+}
+.hero-card.safety {
+  background: linear-gradient(135deg, #E31837, #FF4D4D);
+  box-shadow: 0 0 15px rgba(227, 24, 55, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.hero-card.more-news {
+  background: var(--surface-sunken);
+  border: 2px dashed var(--border-color);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-100);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-100);
+  margin-top: var(--space-100);
+  margin-bottom: var(--space-050);
+}
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--border-color);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.carousel-dot.active {
+  background-color: var(--color-jamboree-green-dark);
+  transform: scale(1.2);
+}
+
+
 

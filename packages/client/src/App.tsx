@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'preact/hooks';
 import { Header } from './components/Header';
 import { BottomNav } from './components/BottomNav';
+import { HomeView } from './components/views/HomeView';
 import { NewsView } from './components/views/NewsView';
 import { WeatherView } from './components/views/WeatherView';
 import { ScheduleView } from './components/views/ScheduleView';
@@ -9,16 +10,35 @@ import { SettingsView } from './components/views/SettingsView';
 import { SyncData, News, WeatherData, EventData } from '@19nsj/schema';
 import { fetchAndMergeSyncData } from './api';
 
-export type ViewType = 'news' | 'weather' | 'map' | 'schedule' | 'settings';
+export type ViewType = 'home' | 'news' | 'weather' | 'map' | 'schedule' | 'settings';
 
 export function App() {
-    const [currentView, setCurrentView] = useState<ViewType>('news');
+    const [currentView, setCurrentView] = useState<ViewType>('home');
     const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
 
     // Hoisted sync state
     const [isSyncing, setIsSyncing] = useState(false);
     const [syncProgress, setSyncProgress] = useState(0);
-    const [newsList, setNewsList] = useState<News[]>([]);
+    const [newsList, setNewsList] = useState<News[]>([
+        {
+            id: -1,
+            createdAt: Date.now(),
+            title: '第19回日本スカウトジャンボリーへようこそ！',
+            category: 4 // ANNOUNCEMENT
+        },
+        {
+            id: -2,
+            createdAt: Date.now(),
+            title: 'アプリの使い方：下のメニューからニュース・天気・スケジュール・マップにアクセスできます',
+            category: 4 // ANNOUNCEMENT
+        },
+        {
+            id: -3,
+            createdAt: Date.now(),
+            title: '最新情報を受け取るには「Manual Sync」ボタンでデータを同期してください',
+            category: 4 // ANNOUNCEMENT
+        },
+    ]);
     const [weather, setWeather] = useState<WeatherData | null>(null);
     const [eventList, setEventList] = useState<EventData[]>([]);
     const [lastSyncText, setLastSyncText] = useState('No recent news.');
@@ -70,6 +90,16 @@ export function App() {
                 <Header isOnline={isOnline} onOpenSettings={() => setCurrentView('settings')} />
             )}
             <main class="app-content">
+                <div class={`view ${currentView === 'home' ? 'active' : ''}`}>
+                    <HomeView 
+                        isSyncing={isSyncing}
+                        newsList={newsList}
+                        weather={weather}
+                        events={eventList}
+                        onSync={handleSync}
+                        onNavigate={setCurrentView}
+                    />
+                </div>
                 <div class={`view ${currentView === 'news' ? 'active' : ''}`}>
                     <NewsView 
                         isSyncing={isSyncing}
@@ -89,7 +119,7 @@ export function App() {
                     <MapView isActive={currentView === 'map'} />
                 </div>
                 <div class={`view ${currentView === 'settings' ? 'active' : ''}`}>
-                    <SettingsView onBack={() => setCurrentView('news')} />
+                    <SettingsView onBack={() => setCurrentView('home')} />
                 </div>
             </main>
             <BottomNav currentView={currentView} onViewChange={setCurrentView} />
